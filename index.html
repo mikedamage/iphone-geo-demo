@@ -1,59 +1,35 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	
-	<title>iPhone Geolocation Example</title>
-	
-	<link rel="stylesheet" href="themes/jqt/jqtouch.css" type="text/css" media="screen" charset="utf-8" />
-	<link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection" charset="utf-8" />
-	
-	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/jqtouch.js"></script>
+	<title>iPhone 3.0 geolocation demo</title>
+	<meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport"/>
+	<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
 	//<![CDATA[
-		
-		$(document).jQTouch({
-			icon: "img/jqtouch.png",
-			statusBar: "black-translucent"
-		});
-		$.preloadImages([
-	        'themes/jqt/img/chevron_white.png',
-	        'themes/jqt/img/bg_row_select.gif',
-	        'themes/jqt/img/back_button.png',
-	        'themes/jqt/img/back_button_clicked.png',
-	        'themes/jqt/img/button_clicked.png',
-	        'themes/jqt/img/grayButton.png',
-	        'themes/jqt/img/whiteButton.png'
-        ]);
-		
 		$(document).ready(function() {
-			$("#about").css("opacity", "0.8");
+			KEY = "ABQIAAAAhCaf6Xp1YdkP8i5QmXb-ohRqejRv5ECKdQdyr1XO96Psq1OAUBRmcqxk-1peb_yIAIR_smKx9IrbXw";
+			var message = $("#message");
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function() {
+					var lat = location.coords.latitude;
+					var lon = location.coords.longitude;
+					var accuracy = location.coords.accuracy;
+					
+					var html = '<img src="http://maps.google.com/staticmap?center='+lat+','+lon+'&size=300x200&maptype=hybrid&zoom=16&key='+KEY+'"/><br/>';
+					html += '<strong>Latitude:</strong> '+lat+'<br/>';
+					html += '<strong>Longitude:</strong> '+lon+'<br/>';
+					html += '<strong>Accuracy:</strong> '+accuracy+'<br/>';
+					message.html(html);
+				});
+			} else {
+				message.html('<strong>Geolocation Not Available</strong>');
+			}
 		});
 	//]]>
 	</script>
 </head>
-
 <body>
-
-	<div id="home" selected="true">
-		<div class="toolbar">
-			<h1>Geo Locator</h1>
-			<a class="button slideup" id="infoButton" href="#about">About</a>
-		</div>
-		<div class="panel">
-			<p>Hello World</p>
-			<a class="button" id="locateButton" href="#">Locate Me</a>
-		</div>
-	</div>
-	
-	<div id="about" class="panel">
-		<div class="pad">
-			<p>This is a quick test/example of iPhone OS 3.0's geolocation API. It should tell you your location via Mobile Safari's JS Geolocation API.</p>
-			<a href="#" class="grayButton back">Close</a>
-		</div>
-	</div>
+	<div id="message">Location unknown</div>
 </body>
 </html>
