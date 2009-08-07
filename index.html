@@ -12,11 +12,13 @@
 			var lat = place.coords.latitude;
 			var lon = place.coords.longitude;
 			var accuracy = place.coords.accuracy;
+			var altitude = place.coords.altitude;
 			var message = $("#message");
 			var html = '<img src="http://maps.google.com/staticmap?center='+lat+','+lon+'&size=300x200&maptype=hybrid&zoom=16&key='+KEY+'"/><br/>';
 			html += '<strong>Latitude:</strong> '+lat+'<br/>';
 			html += '<strong>Longitude:</strong> '+lon+'<br/>';
 			html += '<strong>Accuracy:</strong> '+accuracy+'<br/>';
+			html += '<strong>Altitude:</strong> '+altitude+'<br/>';
 			message.html(html);
 		}
 		
