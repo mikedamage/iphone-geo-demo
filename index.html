@@ -8,26 +8,27 @@
 	<script type="text/javascript" charset="utf-8">
 	//<![CDATA[
 		KEY = "ABQIAAAAhCaf6Xp1YdkP8i5QmXb-ohRqejRv5ECKdQdyr1XO96Psq1OAUBRmcqxk-1peb_yIAIR_smKx9IrbXw";
-		function locationHandler(obj) {
-			var lat = location.coords.latitude;
-			var lon = location.coords.longitude;
-			var accuracy = location.coords.accuracy;
-			
+		function locationHandler(place) {
+			var lat = place.coords.latitude;
+			var lon = place.coords.longitude;
+			var accuracy = place.coords.accuracy;
+			var message = $("#message");
 			var html = '<img src="http://maps.google.com/staticmap?center='+lat+','+lon+'&size=300x200&maptype=hybrid&zoom=16&key='+KEY+'"/><br/>';
 			html += '<strong>Latitude:</strong> '+lat+'<br/>';
 			html += '<strong>Longitude:</strong> '+lon+'<br/>';
 			html += '<strong>Accuracy:</strong> '+accuracy+'<br/>';
-			obj.html(html);
+			message.html(html);
 		}
 		
-		function failHandler(obj) {
-			obj.html("Cannot get location");
+		function failHandler(place) {
+			var message = $("#message");
+			message.html("Cannot get location");
 		}
 		
 		$(document).ready(function() {
 			var message = $("#message");
 			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(locationHandler(message), failHandler(message));
+				navigator.geolocation.getCurrentPosition(locationHandler, failHandler);
 			} else {
 				message.html('<strong>Geolocation Not Available</strong>');
 			}
